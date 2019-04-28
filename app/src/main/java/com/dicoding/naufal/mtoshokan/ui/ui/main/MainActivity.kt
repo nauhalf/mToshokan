@@ -2,6 +2,7 @@ package com.dicoding.naufal.mtoshokan.ui.ui.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.transition.TransitionInflater
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.dicoding.naufal.mtoshokan.R
@@ -24,7 +25,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setUp(){
         val navController = findNavController(R.id.main_navigation_fragment)
-        bottom_nav_main.setupWithNavController(navController)
+
     }
 
     override fun onNavigateUp(): Boolean {
