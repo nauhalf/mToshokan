@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+      xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/dashboardFragment"
+          android:title="Dashboard"
+          android:icon="@drawable/ic_dashboard_black"/>
+    <item android:id="@+id/menu_bookmarked"
+          android:title="Penanda"
+          android:icon="@drawable/ic_bookmark_black"/>
+    <item android:id="@+id/menu_profile"
+          android:title="Profil"
+          android:icon="@drawable/ic_person_black"/>
+</menu>

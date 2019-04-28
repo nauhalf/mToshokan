@@ -11,16 +11,22 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ui.LoginActivity">
+        <activity
+                android:name=".ui.ui.login.LoginActivity"
+                android:windowSoftInputMode="adjustResize|stateHidden">
+        </activity>
+        <activity
+                android:name=".ui.ui.reset.ResetActivity"
+                android:label="@string/title_activity_reset"
+                android:windowSoftInputMode="adjustResize|stateHidden">
+        </activity>
+        <activity android:name=".ui.ui.main.MainActivity">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
-        </activity>
-        <activity
-                android:name=".ui.ResetActivity"
-                android:label="@string/title_activity_reset">
         </activity>
     </application>
 

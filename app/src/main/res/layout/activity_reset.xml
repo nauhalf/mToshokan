@@ -6,7 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/background_gradient_primary"
-        tools:context="com.dicoding.naufal.mtoshokan.ui.ResetActivity">
+        tools:context="com.dicoding.naufal.mtoshokan.ui.ui.reset.ResetActivity">
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -16,7 +16,7 @@
             app:fabSize="mini"
             android:elevation="1dp"
             android:id="@+id/btnBack"
-            android:layout_marginLeft="@dimen/layout_margin_size"
+            android:layout_marginStart="@dimen/layout_margin_size"
             android:layout_marginTop="@dimen/layout_margin_size"
             app:backgroundTint="@color/white"
             app:layout_anchorGravity="top|left"

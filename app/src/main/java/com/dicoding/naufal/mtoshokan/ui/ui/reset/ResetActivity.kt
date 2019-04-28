@@ -1,4 +1,4 @@
-package com.dicoding.naufal.mtoshokan.ui
+package com.dicoding.naufal.mtoshokan.ui.ui.reset
 
 import android.os.Bundle
 import android.app.Activity

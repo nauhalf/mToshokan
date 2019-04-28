@@ -1,8 +1,9 @@
-package com.dicoding.naufal.mtoshokan.ui
+package com.dicoding.naufal.mtoshokan.ui.ui.login
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.dicoding.naufal.mtoshokan.R
+import com.dicoding.naufal.mtoshokan.ui.ui.reset.ResetActivity
 import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity() {

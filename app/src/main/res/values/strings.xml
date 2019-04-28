@@ -3,4 +3,18 @@
     <string name="title_activity_reset">ResetActivity</string>
     <string name="reset_password">Reset Password</string>
     <string name="app_name">m-Toshokan</string>
+    <string name="selamat_datang">Selamat datang,</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="remaining_time">%1$d Hari lagi</string>
+    <string name="overdue_time">%1$d Hari terlewat</string>
+    <string name="show_all">Lihat Semua</string>
+    <string name="borrowing_books">Buku Yang Sedang Dipinjam</string>
+    <string name="history_borrowed_books">Riwayat Buku Dipinjam</string>
+    <string name="find_books">Cari Buku</string>
+    <string name="naufal">Muhammad Naufal Fadhillah</string>
+    <string name="your_pinalty">Denda Kamu</string>
+    <string name="rp_money">Rp. 20.000,-</string>
 </resources>
