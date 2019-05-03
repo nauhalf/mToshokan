@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.chip.Chip
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/chip_history"
+        style="@style/Widget.MaterialComponents.Chip.Entry"
+        android:layout_width="wrap_content"
+        android:maxLines="1"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxLength="20"
+        android:checkable="false"
+        android:clickable="true"
+        tools:text="Hyouka 2 Hyouka 2 Hyouka 2 Hyouka 2 Hyouka 2 Hyouka 2"/>

@@ -10,8 +10,8 @@ data class BorrowingBook(
     var borrowingId: Long?,
     var book: Book?,
     var borrower: User?,
-    var borrowerDate: Date?,
-    var returnDate: Date?,
+    var borrowingDate: Date?,
+    var returningDate: Date?,
     var isReturned: Boolean?
 ) : Parcelable
 

@@ -5,10 +5,10 @@
     <item android:id="@+id/dashboardFragment"
           android:title="Dashboard"
           android:icon="@drawable/ic_dashboard_black"/>
-    <item android:id="@+id/menu_bookmarked"
+    <item android:id="@+id/bookmarkFragment"
           android:title="Penanda"
           android:icon="@drawable/ic_bookmark_black"/>
-    <item android:id="@+id/menu_profile"
+    <item android:id="@+id/profileFragment"
           android:title="Profil"
           android:icon="@drawable/ic_person_black"/>
 </menu>

@@ -24,7 +24,6 @@
             app:srcCompat="@drawable/ic_arrow_back_black"
             app:tint="@color/colorPrimary"/>
 
-
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">

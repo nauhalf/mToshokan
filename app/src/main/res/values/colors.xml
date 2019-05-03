@@ -10,4 +10,5 @@
     <color name="colorBlackPlaceHolder">#a7010101</color>
     <color name="colorInactive">#BDBDBD</color>
     <color name="colorAlertRed">#C91616</color>
+    <color name="colorBlackAlpha80">#B3000000</color>
 </resources>

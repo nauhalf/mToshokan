@@ -1,0 +1,15 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             tools:context="com.dicoding.naufal.mtoshokan.ui.ui.book.borrower.BookBorrowerFragment">
+
+    <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:padding="@dimen/default_margin"
+            android:clipToPadding="false"
+            tools:listitem="@layout/item_history_borrower"
+            android:id="@+id/recycler_history_borrower"
+            android:layout_height="match_parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

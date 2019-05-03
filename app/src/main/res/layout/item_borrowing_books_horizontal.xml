@@ -8,6 +8,8 @@
         app:cardBackgroundColor="@color/white"
         app:cardCornerRadius="@dimen/card_horizontal_radius"
         app:cardElevation="2dp"
+
+        android:foreground="?attr/selectableItemBackground"
         app:cardPreventCornerOverlap="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout

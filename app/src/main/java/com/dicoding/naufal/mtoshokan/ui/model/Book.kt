@@ -8,6 +8,7 @@ data class Book(
     var bookId: Long?,
     var bookTitle: String?,
     var bookWriter: String?,
+    var bookISBN: String?,
     var bookCover: String?,
     var bookSynopsis: String?,
     var bookPublisher: String?,
@@ -20,6 +21,7 @@ val bookHyouka = Book(
     1,
     "Hyouka",
     "Yonezawa Honobu",
+    "9786026383396",
     "hyouka.jpg",
     "Kalau kita menyelidikinya, mungkin akan terjadi hal-hal yang tidak baik. Oreki Hotaro adalah pemuda hemat energi. Mottonya adalah, “Kalau tidak perlu " +
             "dikerjakan, lebih baik tidak usah dikerjakan. Tapi kalau harus dikerjakan, lakukan dengan praktis.” Hanya saja, semua itu berubah saat dia terpaksa bergabung dengan " +
@@ -36,6 +38,7 @@ val bookCreditRoll = Book(
     2,
     "Hyouka 2 : Credit Roll of The Fool",
     "Yonezawa Honobu",
+    "9786026383501",
     "creditfool.jpg",
     "Oreki Hotaro lagi-lagi terseret oleh rasa ingin tahu Chitanda Eru. Melawan " +
             "keinginannya, kali ini Hotaro harus menebak penyelesaian skenario naskah film misteri " +
@@ -56,6 +59,7 @@ val bookKudryavka = Book(
     3,
     "Hyouka 3 : Kudryavka Sequence",
     "Yonezawa Honobu",
+    "9786025297229",
     "creditfool.jpg",
     "Akhirnya Festifal Budaya yang dinantikan pun tiba. Namun, masalah besar terjadi dalam Klub Sastra Klasik. Gara-gara sebuah kesalahan, antologi Hyouka dicetak terlalu banyak. " +
             "Saat semua orang kebingungan memikirkan cara untuk menjual habis antologi itu, sebuah kasus pencurian yang aneh pun terjadi di dalam kompleks sekolah. " +
@@ -70,6 +74,7 @@ val bookOnajiYume = Book(
     4,
     "I Saw The Same Dream Again",
     "Sumino Yoru",
+    "9786025297229",
     "mataonajiyume.jpg",
     "Koyanagi Nanoka adalah seorang pelajar SD yang menganggap dirinya sendiri pintar. " +
             "Dia mendapatkan tugas sekolah untuk memikirkan apa itu kebahagiaan. " +
@@ -82,7 +87,7 @@ val bookOnajiYume = Book(
     "Penerbit Haru",
     bookTypeNovel,
     "F5-11",
-    true
+    false
 )
 
 

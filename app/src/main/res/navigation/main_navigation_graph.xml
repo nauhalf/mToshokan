@@ -10,4 +10,14 @@
             android:name="com.dicoding.naufal.mtoshokan.ui.ui.main.dashboard.DashboardFragment"
             android:label="fragment_dashboard"
             tools:layout="@layout/fragment_dashboard"/>
+    <fragment
+            android:id="@+id/bookmarkFragment"
+            android:name="com.dicoding.naufal.mtoshokan.ui.ui.main.bookmark.BookmarkFragment"
+            android:label="fragment_bookmark"
+            tools:layout="@layout/fragment_bookmark"/>
+    <fragment
+            android:id="@+id/profileFragment"
+            android:name="com.dicoding.naufal.mtoshokan.ui.ui.main.profile.ProfileFragment"
+            android:label="fragment_profile"
+            tools:layout="@layout/fragment_profile"/>
 </navigation>

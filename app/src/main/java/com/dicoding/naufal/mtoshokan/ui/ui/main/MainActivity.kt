@@ -1,34 +1,45 @@
 package com.dicoding.naufal.mtoshokan.ui.ui.main
 
+import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.transition.TransitionInflater
+import android.view.Menu
+import androidx.navigation.NavController
 import androidx.navigation.findNavController
+import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import com.dicoding.naufal.mtoshokan.R
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
+    var navController: NavController? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setUp()
-//        recycler_history_borrowed.apply {
-//            adapter = HistoryBorrowedAdapter(mutableListOf(Book("Hyouka", "AA", "AA"),
-//                Book("Hyouka 2 Credit Roll Of The Fool", "AA", "AA"),
-//                Book("Hyouka 3 Kudryavka Sequence", "AA", "AA")))
-//            layoutManager = LinearLayoutManager(this@MainActivity, LinearLayoutManager.HORIZONTAL, false)
-//            addItemDecoration(MarginItemHorizontalDecoration(context.resources.getDimension(R.dimen.card_horizontal_margin)))
-//        }
+
     }
 
     private fun setUp(){
-        val navController = findNavController(R.id.main_navigation_fragment)
+        navController = findNavController(R.id.main_navigation_fragment)
+        navController?.let {
+            NavigationUI.setupWithNavController(bottom_nav_main, it)
+            it.popBackStack(R.id.bookmarkFragment, true)
 
+            it.popBackStack(R.id.profileFragment, true)
+        }
     }
 
     override fun onNavigateUp(): Boolean {
-        return findNavController(R.id.main_navigation_fragment).navigateUp()
+        return navController?.navigateUp()!!
+    }
+
+    companion object {
+        fun newIntent(context: Context) : Intent{
+            return Intent(context, MainActivity::class.java)
+        }
     }
 }

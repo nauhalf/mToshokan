@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                   xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                   xmlns:tools="http://schemas.android.com/tools"
+                                                   android:orientation="vertical"
+                                                   android:padding="@dimen/chip_custom_padding_horizontal"
+                                                   android:foreground="?attr/selectableItemBackground"
+                                                   android:layout_width="match_parent"
+                                                   android:layout_height="wrap_content">
+
+    <ImageView
+            android:id="@+id/img_bookmark"
+            android:layout_width="36dp"
+            android:layout_height="0dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:src="@drawable/ic_bookmark_black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+            android:id="@+id/txt_bookmark_title"
+            android:layout_marginLeft="@dimen/default_margin"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/default_margin"
+            android:maxLines="1"
+            android:textSize="@dimen/text_h6"
+            android:textColor="@android:color/black"
+            android:ellipsize="end"
+            app:layout_constraintLeft_toRightOf="@id/img_bookmark"
+            app:layout_constraintRight_toLeftOf="@id/txt_img_count"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Halaman 10"/>
+
+
+    <TextView
+            android:id="@+id/txt_bookmark_description"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textSize="@dimen/text_body1"
+            android:textColor="@android:color/black"
+            app:layout_constraintLeft_toLeftOf="@id/txt_bookmark_title"
+            app:layout_constraintRight_toRightOf="@id/txt_bookmark_title"
+            app:layout_constraintTop_toBottomOf="@id/txt_bookmark_title"
+            tools:text="-"/>
+
+    <TextView
+            android:id="@+id/txt_img_count"
+            android:layout_width="50dp"
+            android:layout_height="0dp"
+            android:gravity="center_vertical|right"
+            android:drawableEnd="@drawable/ic_image_black_24dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:textColor="@android:color/black"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="10"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
