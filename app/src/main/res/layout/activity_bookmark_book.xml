@@ -6,7 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
 
-        tools:context="com.dicoding.naufal.mtoshokan.ui.ui.bookmarkbook.BookmarkBookActivity">
+        tools:context=".ui.bookmarkbook.BookmarkBookActivity">
 
     <include layout="@layout/template_toolbar_gradient_rtl"/>
 

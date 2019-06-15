@@ -6,7 +6,7 @@
         android:layout_width="match_parent"
         android:background="@color/colorBackgroundGrey"
         android:layout_height="match_parent"
-        tools:context="com.dicoding.naufal.mtoshokan.ui.ui.main.MainActivity">
+        tools:context=".ui.main.MainActivity">
 
     <fragment
             android:id="@+id/main_navigation_fragment"

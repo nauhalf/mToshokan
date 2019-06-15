@@ -12,24 +12,29 @@
             android:theme="@style/AppTheme"
             tools:ignore="GoogleAppIndexingWarning">
         <activity
-                android:name=".ui.ui.addbookmark.AddBookmarkActivity"
+                android:name="com.dicoding.naufal.mtoshokan.ui.showbookmarkbook.ShowBookmarkBookActivity"
+                android:screenOrientation="portrait"/>
+        <activity
+                android:name="com.dicoding.naufal.mtoshokan.ui.addbookmark.AddBookmarkActivity"
+                android:label="@string/add_penanda"
                 android:windowSoftInputMode="adjustResize|stateHidden"
-                android:label="@string/add_penanda">
-        </activity>
-        <activity android:name=".ui.ui.bookmarkbook.BookmarkBookActivity"
-                android:label="@string/bookmark">
-        </activity>
+                android:screenOrientation="portrait"/>
         <activity
-                android:name=".ui.ui.borrowing.BorrowingActivity"
-                android:label="@string/borrowing">
-        </activity>
+                android:name="com.dicoding.naufal.mtoshokan.ui.bookmarkbook.BookmarkBookActivity"
+                android:label="@string/bookmark"
+                android:screenOrientation="portrait"/>
         <activity
-                android:name=".ui.ui.book.BookActivity"
-                android:label="Info Buku">
-        </activity>
+                android:name="com.dicoding.naufal.mtoshokan.ui.borrowing.BorrowingActivity"
+                android:label="@string/borrowing"
+                android:screenOrientation="portrait"/>
         <activity
-                android:name=".ui.ui.searchresult.SearchResultActivity"
-                android:label="@string/searching">
+                android:name="com.dicoding.naufal.mtoshokan.ui.book.BookActivity"
+                android:label="Info Buku"
+                android:screenOrientation="portrait"/>
+        <activity
+                android:name="com.dicoding.naufal.mtoshokan.ui.searchresult.SearchResultActivity"
+                android:label="@string/searching"
+                android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH"/>
             </intent-filter>
@@ -38,19 +43,22 @@
                     android:name="android.app.searchable"
                     android:resource="@xml/searchable"/>
         </activity>
-        <activity android:name=".ui.ui.search.SearchActivity">
+        <activity
+                android:name="com.dicoding.naufal.mtoshokan.ui.search.SearchActivity"
+                android:screenOrientation="portrait">
             <meta-data
                     android:name="android.app.searchable"
                     android:resource="@xml/searchable"/>
         </activity>
         <activity
-                android:name=".ui.ui.notification.NotificationActivity"
-                android:label="@string/notification">
-        </activity>
+                android:name="com.dicoding.naufal.mtoshokan.ui.notification.NotificationActivity"
+                android:label="@string/notification"
+                android:screenOrientation="portrait"/>
         <activity
-                android:name=".ui.ui.login.LoginActivity"
-                android:windowSoftInputMode="adjustResize|stateHidden">
+                android:name="com.dicoding.naufal.mtoshokan.ui.login.LoginActivity"
+                android:windowSoftInputMode="adjustResize|stateHidden"
 
+                android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -58,12 +66,13 @@
             </intent-filter>
         </activity>
         <activity
-                android:name=".ui.ui.reset.ResetActivity"
+                android:name="com.dicoding.naufal.mtoshokan.ui.reset.ResetActivity"
                 android:label="@string/title_activity_reset"
-                android:windowSoftInputMode="adjustResize|stateHidden">
-        </activity>
-        <activity android:name=".ui.ui.main.MainActivity">
-        </activity>
+                android:screenOrientation="portrait"
+                android:windowSoftInputMode="adjustResize|stateHidden"/>
+        <activity
+                android:name="com.dicoding.naufal.mtoshokan.ui.main.MainActivity"
+                android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

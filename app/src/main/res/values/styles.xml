@@ -67,4 +67,8 @@
     <style name="UnavailableChip" parent="CustomChip">
         <item name="android:background">@drawable/background_gradient_primary_rounded_unavailable</item>
     </style>
+
+    <style name="AppTheme.WhiteAccent">
+        <item name="colorAccent">@color/white</item>
+    </style>
 </resources>

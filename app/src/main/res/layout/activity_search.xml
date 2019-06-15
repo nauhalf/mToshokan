@@ -6,7 +6,7 @@
         android:layout_width="match_parent"
         android:background="@color/colorBackgroundGrey"
         android:layout_height="match_parent"
-        tools:context="com.dicoding.naufal.mtoshokan.ui.ui.search.SearchActivity">
+        tools:context=".ui.search.SearchActivity">
 
     <include layout="@layout/template_toolbar_gradient_rtl"/>
 
@@ -36,6 +36,6 @@
                 android:padding="@dimen/default_margin"
                 android:clipToPadding="false"
                 android:layout_marginTop="@dimen/default_margin"
-                app:layout_constraintTop_toBottomOf="@id/txt_your_history"></androidx.recyclerview.widget.RecyclerView>
+                app:layout_constraintTop_toBottomOf="@id/txt_your_history"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

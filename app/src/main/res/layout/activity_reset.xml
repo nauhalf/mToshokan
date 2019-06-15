@@ -6,7 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/background_gradient_primary"
-        tools:context="com.dicoding.naufal.mtoshokan.ui.ui.reset.ResetActivity">
+        tools:context=".ui.reset.ResetActivity">
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

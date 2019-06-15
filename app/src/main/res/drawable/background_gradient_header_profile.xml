@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <item>
+        <shape>
+            <size android:height="200dp"/>
+            <gradient
+                    android:type="linear"
+                    android:angle="135"
+                    android:startColor="@color/colorPrimary"
+                    android:endColor="@color/colorSecondary"/>
+
+        </shape>
+    </item>
+
+    <item android:drawable="@drawable/custom_header"/>
+</layer-list>

@@ -3,7 +3,7 @@
                                                      xmlns:app="http://schemas.android.com/apk/res-auto"
                                                      android:layout_width="match_parent"
                                                      android:layout_height="match_parent"
-                                                     tools:context="com.dicoding.naufal.mtoshokan.ui.ui.main.bookmark.BookmarkFragment">
+                                                     tools:context=".ui.main.bookmark.BookmarkFragment">
 
     <include layout="@layout/template_toolbar_gradient_rtl"/>
 
