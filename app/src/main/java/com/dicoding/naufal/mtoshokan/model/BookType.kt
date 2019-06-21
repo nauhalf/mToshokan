@@ -5,8 +5,8 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class BookType(
-    var typeId: String?,
-    var typeName: String?
+    var typeId: String?= null,
+    var typeName: String?= null
 ) : Parcelable
 
 val bookTypeNovel = BookType("qq", "Novel")

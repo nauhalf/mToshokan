@@ -11,5 +11,6 @@
     <color name="colorInactive">#BDBDBD</color>
     <color name="colorAlertRed">#C91616</color>
     <color name="colorBlackAlpha80">#B3000000</color>
+    <color name="colorShimmer">#ddd</color>
 
 </resources>

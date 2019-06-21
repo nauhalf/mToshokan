@@ -71,4 +71,8 @@
     <style name="AppTheme.WhiteAccent">
         <item name="colorAccent">@color/white</item>
     </style>
+
+    <style name="AppTheme.PrimaryAccent">
+        <item name="colorAccent">@color/colorPrimary</item>
+    </style>
 </resources>

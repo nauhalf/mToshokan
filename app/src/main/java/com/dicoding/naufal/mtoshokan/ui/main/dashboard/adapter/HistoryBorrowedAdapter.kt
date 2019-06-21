@@ -7,17 +7,17 @@ import androidx.recyclerview.widget.RecyclerView
 import com.dicoding.naufal.mtoshokan.R
 import com.dicoding.naufal.mtoshokan.model.Book
 import com.dicoding.naufal.mtoshokan.model.BorrowingBook
-import kotlinx.android.synthetic.main.item_borrowed_books_horizontal.view.*
 
-class HistoryBorrowedAdapter(private val list: MutableList<BorrowingBook>, val listener: (Book) -> Unit) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class HistoryBorrowedAdapter(private val list: MutableList<BorrowingBook>, val listener: (Book) -> Unit) :
+    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val view = if(viewType == VIEW_TYPE_EMPTY) {
+        val view = if (viewType == VIEW_TYPE_EMPTY) {
             ViewHolderEmpty(
                 LayoutInflater.from(parent.context)
                     .inflate(R.layout.item_borrowed_books_horizontal_empty, parent, false)
             )
-        } else{
+        } else {
             ViewHolder(
                 LayoutInflater.from(parent.context)
                     .inflate(R.layout.item_borrowed_books_horizontal, parent, false)
@@ -56,10 +56,10 @@ class HistoryBorrowedAdapter(private val list: MutableList<BorrowingBook>, val l
 
     inner class ViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
         fun bind(book: BorrowingBook) {
-            view.txt_title.text = book.book?.bookTitle
-            view.setOnClickListener {
-                book.book?.let { it1 -> listener(it1) }
-            }
+//            view.txt_title.text = book.book?.bookTitle
+//            view.setOnClickListener {
+//                book.book?.let { it1 -> listener(it1) }
+//            }
         }
     }
 

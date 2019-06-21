@@ -22,9 +22,7 @@
         <ImageView
                 android:id="@+id/img_cover"
                 android:src="@drawable/logo"
-                android:cropToPadding="true"
-                android:padding="15dp"
-                android:tint="@color/colorBackgroundGrey"
+                android:scaleType="centerCrop"
                 android:layout_width="100dp"
                 android:background="@drawable/background_item_vertical_left_radius"
                 android:layout_height="match_parent"

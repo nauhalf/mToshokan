@@ -1,18 +1,20 @@
 package com.dicoding.naufal.mtoshokan.model
 
 import android.os.Parcelable
-import com.dicoding.naufal.mtoshokan.utils.getNextTenDays
 import kotlinx.android.parcel.Parcelize
 import java.util.*
 
 @Parcelize
 data class BorrowingBook(
-    var borrowingBookId: Long?,
-    var collection: Collection?,
-    var borrower: User?,
-    var borrowingDate: Date?,
-    var returningDate: Date?,
-    var isReturned: Boolean?
+    var borrowingBookId: String? = null,
+    var collectionId: String? = null,
+    var borrower: User? = null,
+    var bookId: String? = null,
+    var borrowingDate: Date? = null,
+    var returningDate: Date? = null,
+    var isReturned: Boolean? = null
+
+
 ) : Parcelable
 
 //val borrowingBookList = mutableListOf<BorrowingBook>(

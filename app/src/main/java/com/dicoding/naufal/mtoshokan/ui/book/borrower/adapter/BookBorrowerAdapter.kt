@@ -8,7 +8,7 @@ import com.dicoding.naufal.mtoshokan.R
 import com.dicoding.naufal.mtoshokan.model.BorrowingBook
 import kotlinx.android.synthetic.main.item_history_borrower.view.*
 
-class BookBorrowerAdapter(private val list: MutableList<BorrowingBook>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class BookBorrowerAdapter(private val list: MutableList<BorrowingBook> = mutableListOf()) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
 
         return if(viewType == VIEW_TYPE_NORMAL) {
@@ -18,6 +18,12 @@ class BookBorrowerAdapter(private val list: MutableList<BorrowingBook>) : Recycl
         } else {
             EmptyViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_history_borrower_empty, parent, false))
         }
+    }
+
+    fun addList(data: List<BorrowingBook>){
+        list.clear()
+        list.addAll(data)
+        notifyDataSetChanged()
     }
 
     override fun getItemCount(): Int {

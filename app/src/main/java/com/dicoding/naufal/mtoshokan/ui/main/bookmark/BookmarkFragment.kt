@@ -2,13 +2,12 @@ package com.dicoding.naufal.mtoshokan.ui.main.bookmark
 
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
-
 import com.dicoding.naufal.mtoshokan.R
 import com.dicoding.naufal.mtoshokan.itemdecoration.MarginItemGridDecoration
 import com.dicoding.naufal.mtoshokan.model.bookmarkList
@@ -32,14 +31,14 @@ class BookmarkFragment : Fragment() {
         setUp()
     }
 
-    fun setUp(){
+    fun setUp() {
         val activity = (activity as AppCompatActivity)
         activity.setSupportActionBar(toolbar)
         activity.supportActionBar?.title = "Penanda"
         recycler_bookmarked_book.apply {
             adapter = BookmarkAdapter(
                 bookmarkList
-            ){
+            ) {
                 startActivity(BookmarkBookActivity.newIntent(context, it))
             }
 

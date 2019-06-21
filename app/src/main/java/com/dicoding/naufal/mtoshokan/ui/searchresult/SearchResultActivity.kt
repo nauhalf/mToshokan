@@ -3,29 +3,47 @@ package com.dicoding.naufal.mtoshokan.ui.searchresult
 import android.app.SearchManager
 import android.content.Intent
 import android.os.Bundle
-import android.text.SpannableStringBuilder
+import android.util.Log
 import android.view.MenuItem
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.text.bold
+import android.view.View
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.dicoding.naufal.mtoshokan.BR
 import com.dicoding.naufal.mtoshokan.R
+import com.dicoding.naufal.mtoshokan.base.BaseActivity
+import com.dicoding.naufal.mtoshokan.databinding.ActivitySearchResultBinding
 import com.dicoding.naufal.mtoshokan.itemdecoration.MarginItemVerticalDecoration
-import com.dicoding.naufal.mtoshokan.model.bookCreditRoll
-import com.dicoding.naufal.mtoshokan.model.bookHyouka
-import com.dicoding.naufal.mtoshokan.model.bookKudryavka
-import com.dicoding.naufal.mtoshokan.model.bookOnajiYume
 import com.dicoding.naufal.mtoshokan.ui.book.BookActivity
 import com.dicoding.naufal.mtoshokan.ui.searchresult.adapter.SearchResultAdapter
 import kotlinx.android.synthetic.main.activity_search_result.*
+import kotlinx.android.synthetic.main.shimmer_activity_search_result.*
 import kotlinx.android.synthetic.main.template_toolbar_gradient_rtl.*
 
-class SearchResultActivity : AppCompatActivity() {
+class SearchResultActivity : BaseActivity<ActivitySearchResultBinding, SearchResultViewModel>() {
 
-    var querySearch: String? = null
+    private lateinit var querySearch: String
+    lateinit var searchResultAdapter: SearchResultAdapter
+    lateinit var searchResultViewModel: SearchResultViewModel
+    lateinit var binding: ActivitySearchResultBinding
+
+    override fun getLayoutId(): Int {
+        return R.layout.activity_search_result
+    }
+
+    override fun getViewModel(): SearchResultViewModel {
+        searchResultViewModel = ViewModelProviders.of(this).get(SearchResultViewModel::class.java)
+        return searchResultViewModel
+    }
+
+    override fun getBindingVariable(): Int {
+        return BR.searchResultViewModel
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_search_result)
+        binding = getViewDataBinding()
         setUp()
 
     }
@@ -45,28 +63,22 @@ class SearchResultActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
 
-        newIntent()
-        val query = SpannableStringBuilder()
-            .append(resources.getString(R.string.search_with_keywords))
-            .append(" ")
-            .bold {
-                append(querySearch)
-            }
+        searchResultAdapter = SearchResultAdapter {
+            startActivity(it.bookId?.let { it1 -> BookActivity.newIntent(this@SearchResultActivity, it1) })
+        }
 
-        txt_search_query.text = query
+        newIntent()
 
         recycler_result_search.apply {
-            adapter = SearchResultAdapter(
-                mutableListOf(
-                    bookHyouka, bookCreditRoll, bookKudryavka, bookOnajiYume
-                )
-            ) {
-                startActivity(BookActivity.newIntent(this@SearchResultActivity, it))
-            }
+            adapter = searchResultAdapter
             layoutManager = LinearLayoutManager(this@SearchResultActivity, RecyclerView.VERTICAL, false)
 
             addItemDecoration(MarginItemVerticalDecoration(resources.getDimension(R.dimen.card_vertical_margin)))
         }
+
+        subscribeToLiveData()
+
+        searchResultViewModel.loadSearchData(querySearch)
     }
 
     private fun newIntent() {
@@ -75,5 +87,39 @@ class SearchResultActivity : AppCompatActivity() {
                 querySearch = query
             }
         }
+    }
+
+    private fun subscribeToLiveData() {
+        searchResultViewModel.querySearch.observe(this, Observer {
+            if (it.isNotEmpty()) {
+                searchResultAdapter.setQuery(it)
+            }
+        })
+
+        searchResultViewModel.bookList.observe(this, Observer {
+            Log.d("Data => ", it.toString())
+            searchResultAdapter.setData(it)
+        })
+
+        searchResultViewModel.loading.observe(this, Observer {
+            if (it) {
+                shimmer_activity_search_result.startShimmer()
+                shimmer_activity_search_result.visibility = View.VISIBLE
+            } else {
+                shimmer_activity_search_result.stopShimmer()
+                shimmer_activity_search_result.visibility = View.GONE
+            }
+        })
+    }
+
+
+    override fun onResume() {
+        if (searchResultViewModel.loading.value!!) shimmer_activity_search_result.startShimmer()
+        super.onResume()
+    }
+
+    override fun onPause() {
+        if (searchResultViewModel.loading.value!!) shimmer_activity_search_result.stopShimmer()
+        super.onPause()
     }
 }

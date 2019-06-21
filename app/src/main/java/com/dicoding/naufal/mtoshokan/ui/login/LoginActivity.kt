@@ -2,25 +2,20 @@ package com.dicoding.naufal.mtoshokan.ui.login
 
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
-import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.dicoding.naufal.mtoshokan.BR
 import com.dicoding.naufal.mtoshokan.R
-import com.dicoding.naufal.mtoshokan.base.BaseViewModel
+import com.dicoding.naufal.mtoshokan.base.BaseActivity
 import com.dicoding.naufal.mtoshokan.databinding.ActivityLoginBinding
 import com.dicoding.naufal.mtoshokan.ui.main.MainActivity
 import com.dicoding.naufal.mtoshokan.ui.reset.ResetActivity
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_login.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.tasks.await
 
-class LoginActivity : AppCompatActivity() {
+class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>() {
 
     lateinit var auth: FirebaseAuth
     lateinit var viewmodel: LoginViewModel
@@ -28,19 +23,28 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         auth = FirebaseAuth.getInstance()
+        binding = getViewDataBinding()
         setUp()
     }
 
 
-    fun setUp(){
-        viewmodel = ViewModelProviders.of(this).get(LoginViewModel::class.java)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_login)
-        binding.loginViewModel = viewmodel
-        binding.lifecycleOwner = this
+    override fun getLayoutId(): Int {
+        return R.layout.activity_login
+    }
 
+    override fun getViewModel(): LoginViewModel {
+        viewmodel = ViewModelProviders.of(this).get(LoginViewModel::class.java)
+        return viewmodel
+    }
+
+    override fun getBindingVariable(): Int {
+        return BR.loginViewModel
+    }
+
+    fun setUp() {
 
         viewmodel.errorLogin.observe(this, Observer {
-            if(!it.isNullOrEmpty()){
+            if (!it.isNullOrEmpty()) {
                 Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
             }
         })
@@ -52,13 +56,11 @@ class LoginActivity : AppCompatActivity() {
             }
         })
 
-
         txtResetPassword.setOnClickListener {
             startActivity(ResetActivity.newIntent(this))
         }
-
-
     }
+
     override fun onStart() {
         super.onStart()
         val currentUser = auth.currentUser
@@ -69,8 +71,8 @@ class LoginActivity : AppCompatActivity() {
     }
 
 
-    companion object{
-        fun newIntent(context: Context) : Intent {
+    companion object {
+        fun newIntent(context: Context): Intent {
             return Intent(context, LoginActivity::class.java)
         }
     }

@@ -18,7 +18,6 @@ class LoginViewModel : BaseViewModel() {
     val user: MutableLiveData<FirebaseUser> = MutableLiveData()
     val errorEmail: MutableLiveData<String> = MutableLiveData()
     val errorPassword: MutableLiveData<String> = MutableLiveData()
-    val loading: MutableLiveData<Boolean> = MutableLiveData()
     val errorLogin: MutableLiveData<String> = MutableLiveData()
 
     init {
@@ -32,7 +31,7 @@ class LoginViewModel : BaseViewModel() {
                     loading.value = true
 
                     val auth = withContext(Dispatchers.IO) {
-                        FirebaseAuth.getInstance().signInWithEmailAndPassword(email.value!!, password.value!!)
+                        auth.signInWithEmailAndPassword(email.value!!, password.value!!)
                     }.await()
 
 

@@ -1,42 +1,51 @@
 package com.dicoding.naufal.mtoshokan.ui.main.dashboard
 
 
+import android.Manifest
 import android.content.Intent
 import android.graphics.PorterDuff
+import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.view.*
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.widget.ImageViewCompat
-import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.dicoding.naufal.mtoshokan.BR
 import com.dicoding.naufal.mtoshokan.R
-import com.dicoding.naufal.mtoshokan.itemdecoration.MarginItemHorizontalDecoration
-import com.dicoding.naufal.mtoshokan.model.borrowingBookList
-import com.dicoding.naufal.mtoshokan.ui.book.BookActivity
-import com.dicoding.naufal.mtoshokan.ui.borrowing.BorrowingActivity
-import com.dicoding.naufal.mtoshokan.ui.main.dashboard.adapter.HistoryBorrowedAdapter
-import com.dicoding.naufal.mtoshokan.ui.main.dashboard.adapter.StillBorrowingAdapter
+import com.dicoding.naufal.mtoshokan.base.BaseFragment
+import com.dicoding.naufal.mtoshokan.databinding.FragmentDashboardBinding
 import com.dicoding.naufal.mtoshokan.ui.notification.NotificationActivity
+import com.dicoding.naufal.mtoshokan.ui.scanqr.ScanQRActivity
 import com.dicoding.naufal.mtoshokan.ui.search.SearchActivity
+import com.dicoding.naufal.mtoshokan.utils.showPermissionErrorMessage
 import com.google.android.material.appbar.AppBarLayout
 import kotlinx.android.synthetic.main.fragment_dashboard.*
 
-class DashboardFragment : Fragment() {
+class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewModel>() {
 
-    var notificationIcon: Drawable? = null
+    lateinit var mDashboardViewModel: DashboardViewModel
+    lateinit var binding: FragmentDashboardBinding
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        val v = inflater.inflate(R.layout.fragment_dashboard, container, false)
+    private var notificationIcon: Drawable? = null
 
-        setHasOptionsMenu(true)
-        return v
+    override val bindingVariable: Int
+        get() = BR.dashboardViewModel
+
+    override val layoutId: Int
+        get() = R.layout.fragment_dashboard
+
+    override fun getViewModel(): DashboardViewModel {
+        mDashboardViewModel = ViewModelProviders.of(this).get(DashboardViewModel::class.java)
+        return mDashboardViewModel
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -47,6 +56,7 @@ class DashboardFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding = getViewDataBinding()
         setUp()
     }
 
@@ -62,7 +72,16 @@ class DashboardFragment : Fragment() {
         }
     }
 
-    fun setUp() {
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        when (requestCode) {
+            PERMISSION_DASHBOARD -> {
+                showPermissionErrorMessage(requireContext(), permissions, grantResults)
+            }
+        }
+    }
+
+    private fun setUp() {
         val a = (activity as AppCompatActivity)
         a.setSupportActionBar(toolbar)
         a.supportActionBar?.title = ""
@@ -88,29 +107,63 @@ class DashboardFragment : Fragment() {
             startActivity(searchIntent)
         }
 
-        recycler_history_borrowed.apply {
-            adapter = HistoryBorrowedAdapter(
-                borrowingBookList.filter {
-                    it.isReturned == true
-                }.toMutableList()
+        subscribeToLiveData()
+
+        fab_qr.setOnClickListener {
+            if (checkPermission(
+                    listOf(
+                        Manifest.permission.CAMERA
+                    ), PERMISSION_DASHBOARD
+                )
             ) {
-                startActivity(BookActivity.newIntent(context, it))
+                startActivity(ScanQRActivity.newIntent(requireContext()))
             }
-
-            layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
-            addItemDecoration(MarginItemHorizontalDecoration(context.resources.getDimension(R.dimen.card_horizontal_margin)))
         }
 
-        recycler_still_borrowing.apply {
-            adapter = StillBorrowingAdapter(
-                borrowingBookList.filter {
-                    it.isReturned == false
-                }.toMutableList()
-            ){
-                startActivity(BorrowingActivity.newIntent(context, it))
+//        recycler_history_borrowed.apply {
+//            adapter = HistoryBorrowedAdapter(
+//                borrowingBookList.filter {
+//                    it.isReturned == true
+//                }.toMutableList()
+//            ) {
+//                startActivity(BookActivity.newIntent(context, it))
+//            }
+//
+//            layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
+//            addItemDecoration(MarginItemHorizontalDecoration(context.resources.getDimension(R.dimen.card_horizontal_margin)))
+//        }
+
+//        recycler_still_borrowing.apply {
+//            adapter = StillBorrowingAdapter(
+//                borrowingBookList.filter {
+//                    it.isReturned == false
+//                }.toMutableList()
+//            ){
+//                startActivity(BorrowingActivity.newIntent(context, it))
+//            }
+//            layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
+//            addItemDecoration(MarginItemHorizontalDecoration(context.resources.getDimension(R.dimen.card_horizontal_margin)))
+//        }
+    }
+
+    private fun subscribeToLiveData() {
+        mDashboardViewModel.imageUrlLiveData.observe(viewLifecycleOwner, Observer {
+            if (it != null && it.isNotEmpty()) {
+                Glide.with(requireContext())
+                    .load(it)
+                    .placeholder(ColorDrawable(ContextCompat.getColor(requireContext(), R.color.colorInactive)))
+                    .centerCrop()
+                    .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                    .into(civ_image_header)
+            } else {
+                Glide.with(requireContext())
+                    .load(ColorDrawable(ContextCompat.getColor(requireContext(), R.color.colorInactive)))
+                    .into(civ_image_header)
             }
-            layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
-            addItemDecoration(MarginItemHorizontalDecoration(context.resources.getDimension(R.dimen.card_horizontal_margin)))
-        }
+        })
+    }
+
+    companion object {
+        const val PERMISSION_DASHBOARD = 1
     }
 }

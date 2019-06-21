@@ -1,20 +1,38 @@
 package com.dicoding.naufal.mtoshokan.model
 
 import android.os.Parcelable
+import com.google.firebase.firestore.DocumentSnapshot
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class Book(
-    var bookId: String?,
-    var bookTitle: String?,
-    var bookWriter: String?,
-    var bookISBN: String?,
-    var bookCover: String?,
-    var bookSynopsis: String?,
-    var bookPublisher: String?,
-    var bookType: BookType?,
-    var bookLocation: String?
-) : Parcelable
+    var bookId: String? = null,
+    var bookTitle: String?= null,
+    var bookWriter: String?= null,
+    var bookISBN: String?= null,
+    var bookCover: String?= null,
+    var bookSynopsis: String?= null,
+    var bookPublisher: String?= null,
+    var bookType: BookType?= null,
+    var bookLocation: String?= null
+) : Parcelable {
+    companion object{
+        fun toBook(snapshot : DocumentSnapshot, bookType: BookType) : Book {
+            return Book(
+                bookId = snapshot.getString("bookId"),
+                bookCover = snapshot.getString("bookCover"),
+                bookISBN = snapshot.getString("bookISBN"),
+                bookLocation = snapshot.getString("bookLocation"),
+                bookPublisher = snapshot.getString("bookPublisher"),
+                bookSynopsis = snapshot.getString("bookSynopsis"),
+                bookTitle = snapshot.getString("bookTitle"),
+                bookWriter = snapshot.getString("bookWriter"),
+                bookType = bookType
+            )
+        }
+    }
+
+}
 
 val bookHyouka = Book(
     "asda",

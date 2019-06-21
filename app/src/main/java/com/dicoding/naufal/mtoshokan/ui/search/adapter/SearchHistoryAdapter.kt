@@ -8,9 +8,14 @@ import com.dicoding.naufal.mtoshokan.R
 import com.dicoding.naufal.mtoshokan.model.SearchHistory
 import kotlinx.android.synthetic.main.item_search_history.view.*
 
-class SearchHistoryAdapter(private val list: MutableList<SearchHistory>, val listener: (SearchHistory)-> Unit) :
+class SearchHistoryAdapter(val listener: (SearchHistory)-> Unit, val deleteListener: (SearchHistory) -> Unit) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-
+    private val list: MutableList<SearchHistory> = mutableListOf()
+    fun setData(data: List<SearchHistory>){
+        list.clear()
+        list.addAll(data)
+        notifyDataSetChanged()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return ViewHolder(
@@ -20,6 +25,7 @@ class SearchHistoryAdapter(private val list: MutableList<SearchHistory>, val lis
     }
 
     fun delete(s: SearchHistory) : Unit{
+        deleteListener(s)
         list.remove(s)
         notifyDataSetChanged()
     }
@@ -27,7 +33,7 @@ class SearchHistoryAdapter(private val list: MutableList<SearchHistory>, val lis
     override fun getItemCount(): Int = list.size
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        (holder as ViewHolder).bindItem(list.get(position))
+        (holder as ViewHolder).bindItem(list[position])
     }
 
     inner class ViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
