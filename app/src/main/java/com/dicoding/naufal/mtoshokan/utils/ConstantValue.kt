@@ -9,6 +9,7 @@ object ConstantValue {
             const val SearchHistories: String = "searchHistories"
             const val BorrowingBooks: String = "borrowingBooks"
             const val Users: String = "users"
+            const val Bookmarks: String = "bookmarks"
         }
     }
 
@@ -16,6 +17,7 @@ object ConstantValue {
         companion object{
             const val UserPhoto: String = "userPhoto"
             const val BookCover: String = "bookCover"
+            const val BookmarkImage: String = "bookmarkImage"
         }
     }
 

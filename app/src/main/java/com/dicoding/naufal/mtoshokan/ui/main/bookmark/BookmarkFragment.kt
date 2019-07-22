@@ -10,9 +10,6 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import com.dicoding.naufal.mtoshokan.R
 import com.dicoding.naufal.mtoshokan.itemdecoration.MarginItemGridDecoration
-import com.dicoding.naufal.mtoshokan.model.bookmarkList
-import com.dicoding.naufal.mtoshokan.ui.bookmarkbook.BookmarkBookActivity
-import com.dicoding.naufal.mtoshokan.ui.main.bookmark.adapter.BookmarkAdapter
 import kotlinx.android.synthetic.main.fragment_bookmark.*
 import kotlinx.android.synthetic.main.template_toolbar_gradient_rtl.*
 
@@ -36,11 +33,9 @@ class BookmarkFragment : Fragment() {
         activity.setSupportActionBar(toolbar)
         activity.supportActionBar?.title = "Penanda"
         recycler_bookmarked_book.apply {
-            adapter = BookmarkAdapter(
-                bookmarkList
-            ) {
-                startActivity(BookmarkBookActivity.newIntent(context, it))
-            }
+            //            adapter = BookmarkAdapter( listener = {
+//                startActivity(BookmarkBookActivity.newIntent(context, it))
+//            }
 
             layoutManager = GridLayoutManager(context, 3)
             addItemDecoration(MarginItemGridDecoration(resources.getDimension(R.dimen.card_horizontal_margin), 3))

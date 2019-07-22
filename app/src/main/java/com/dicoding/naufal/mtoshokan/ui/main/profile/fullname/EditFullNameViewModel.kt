@@ -39,7 +39,7 @@ class EditFullNameViewModel : BaseViewModel() {
     private suspend fun update(): Boolean {
         return withContext(Dispatchers.IO) {
             try {
-                val update = auth.currentUser?.uid?.let {
+                auth.currentUser?.uid?.let {
                     database.collection(ConstantValue.Database.Users).document(
                         it
                     ).update("userFullName", fullNameLiveData.value)
@@ -48,7 +48,7 @@ class EditFullNameViewModel : BaseViewModel() {
                 val profileUpdates = UserProfileChangeRequest.Builder()
                     .setDisplayName(fullNameLiveData.value)
                     .build()
-                val a = auth.currentUser?.updateProfile(profileUpdates)?.await()
+                auth.currentUser?.updateProfile(profileUpdates)?.await()
 
                 true
 

@@ -3,11 +3,22 @@ package com.dicoding.naufal.mtoshokan.ui.main.dashboard.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.dicoding.naufal.mtoshokan.R
 import com.dicoding.naufal.mtoshokan.model.BorrowingBook
+import com.dicoding.naufal.mtoshokan.utils.getRemaingDays
+import kotlinx.android.synthetic.main.item_borrowing_books_horizontal.view.*
 
-class StillBorrowingAdapter(private val list: MutableList<BorrowingBook>, private val listener: (BorrowingBook) -> Unit) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class StillBorrowingAdapter(private val list: MutableList<BorrowingBook> = mutableListOf(), private val listener: (BorrowingBook) -> Unit) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+    fun setData(data: List<BorrowingBook>){
+        list.clear()
+        list.addAll(data)
+        notifyDataSetChanged()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val view = if(viewType == VIEW_TYPE_EMPTY) {
@@ -55,17 +66,23 @@ class StillBorrowingAdapter(private val list: MutableList<BorrowingBook>, privat
     inner class ViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
         fun bind(book: BorrowingBook) {
 
-//            view.txt_title.text = book.book?.bookTitle
-//            val remaining = book.returningDate?.getRemaingDays()
-//            view.txt_remaining_date.text = remaining?.let {
-//                if(it < 0){
-//                    view.txt_remaining_date.setTextColor(ContextCompat.getColor(view.context, R.color.colorAlertRed))
-//                    view.resources.getString(R.string.overdue_time, it*-1)
-//                }
-//                else {
-//                    view.resources.getString(R.string.remaining_time, it)
-//                }
-//            }
+            view.txt_title.text = book.book?.bookTitle
+            val remaining = book.returningDate?.getRemaingDays()
+            view.txt_remaining_date.text = remaining?.let {
+                if(it < 0){
+                    view.txt_remaining_date.setTextColor(ContextCompat.getColor(view.context, R.color.colorAlertRed))
+                    view.resources.getString(R.string.overdue_time, it*-1)
+                }
+                else {
+                    view.resources.getString(R.string.remaining_time, it)
+                }
+            }
+
+            Glide.with(view.context)
+                .load(book.book?.bookCover)
+                .centerCrop()
+                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                .into(view.img_cover)
 
             view.setOnClickListener {
                 listener(book)

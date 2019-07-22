@@ -35,6 +35,8 @@
                     android:layout_marginTop="@dimen/default_margin"
                     app:boxStrokeWidth="1dp"
                     app:counterEnabled="true"
+                    app:error="@{editFullNameViewModel.errorFullNameLiveData}"
+                    app:errorEnabled="true"
                     app:counterMaxLength="30"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"

@@ -17,23 +17,34 @@ import androidx.core.view.ViewCompat
 import androidx.core.widget.ImageViewCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.dicoding.naufal.mtoshokan.BR
 import com.dicoding.naufal.mtoshokan.R
 import com.dicoding.naufal.mtoshokan.base.BaseFragment
 import com.dicoding.naufal.mtoshokan.databinding.FragmentDashboardBinding
+import com.dicoding.naufal.mtoshokan.itemdecoration.MarginItemHorizontalDecoration
+import com.dicoding.naufal.mtoshokan.ui.book.BookActivity
+import com.dicoding.naufal.mtoshokan.ui.borrowing.BorrowingActivity
+import com.dicoding.naufal.mtoshokan.ui.main.dashboard.adapter.HistoryBorrowedAdapter
+import com.dicoding.naufal.mtoshokan.ui.main.dashboard.adapter.StillBorrowingAdapter
 import com.dicoding.naufal.mtoshokan.ui.notification.NotificationActivity
 import com.dicoding.naufal.mtoshokan.ui.scanqr.ScanQRActivity
 import com.dicoding.naufal.mtoshokan.ui.search.SearchActivity
 import com.dicoding.naufal.mtoshokan.utils.showPermissionErrorMessage
 import com.google.android.material.appbar.AppBarLayout
 import kotlinx.android.synthetic.main.fragment_dashboard.*
+import kotlinx.android.synthetic.main.fragment_dashboard.recycler_history_borrowed
+import kotlinx.android.synthetic.main.fragment_dashboard.recycler_still_borrowing
+import kotlinx.android.synthetic.main.shimmer_fragment_dashboard.*
 
 class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewModel>() {
 
     lateinit var mDashboardViewModel: DashboardViewModel
     lateinit var binding: FragmentDashboardBinding
+    lateinit var mStillBorrowingAdapter: StillBorrowingAdapter
+    lateinit var mHistoryBorrowedAdapter: HistoryBorrowedAdapter
 
     private var notificationIcon: Drawable? = null
 
@@ -86,6 +97,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
         a.setSupportActionBar(toolbar)
         a.supportActionBar?.title = ""
         appbar.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { _, verticalOffset ->
+            swipelayout.isEnabled = verticalOffset == 0
             if (collapseToolbar.height + verticalOffset < 2 * ViewCompat.getMinimumHeight(collapseToolbar)) {
                 notificationIcon?.setColorFilter(
                     ContextCompat.getColor(a, R.color.colorPrimary),
@@ -100,6 +112,15 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
                 )
                 ImageViewCompat.setImageTintList(img_logo, ContextCompat.getColorStateList(a, R.color.white))
             }
+        })
+        swipelayout.isEnabled = false
+
+        mStillBorrowingAdapter = StillBorrowingAdapter(listener = {
+            startActivity(BorrowingActivity.newIntent(requireContext(), it))
+        })
+
+        mHistoryBorrowedAdapter = HistoryBorrowedAdapter(listener = {
+            startActivity(BorrowingActivity.newIntent(requireContext(), it) )
         })
 
         btnSearch.setOnClickListener {
@@ -120,30 +141,27 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
             }
         }
 
-//        recycler_history_borrowed.apply {
-//            adapter = HistoryBorrowedAdapter(
-//                borrowingBookList.filter {
-//                    it.isReturned == true
-//                }.toMutableList()
-//            ) {
-//                startActivity(BookActivity.newIntent(context, it))
-//            }
-//
-//            layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
-//            addItemDecoration(MarginItemHorizontalDecoration(context.resources.getDimension(R.dimen.card_horizontal_margin)))
-//        }
+        recycler_history_borrowed.apply {
+            adapter = mHistoryBorrowedAdapter
+            layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
+            addItemDecoration(MarginItemHorizontalDecoration(context.resources.getDimension(R.dimen.card_horizontal_margin)))
+        }
 
-//        recycler_still_borrowing.apply {
-//            adapter = StillBorrowingAdapter(
-//                borrowingBookList.filter {
-//                    it.isReturned == false
-//                }.toMutableList()
-//            ){
-//                startActivity(BorrowingActivity.newIntent(context, it))
-//            }
-//            layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
-//            addItemDecoration(MarginItemHorizontalDecoration(context.resources.getDimension(R.dimen.card_horizontal_margin)))
-//        }
+        recycler_still_borrowing.apply {
+            adapter = mStillBorrowingAdapter
+            layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
+            addItemDecoration(MarginItemHorizontalDecoration(context.resources.getDimension(R.dimen.card_horizontal_margin)))
+        }
+
+        swipelayout.setColorSchemeColors(
+            ContextCompat.getColor(requireContext(), R.color.colorSwipe1),
+            ContextCompat.getColor(requireContext(), R.color.colorSwipe2),
+            ContextCompat.getColor(requireContext(), R.color.colorSwipe3)
+        )
+
+        swipelayout.setOnRefreshListener {
+            mDashboardViewModel.getData()
+        }
     }
 
     private fun subscribeToLiveData() {
@@ -160,6 +178,36 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
                     .load(ColorDrawable(ContextCompat.getColor(requireContext(), R.color.colorInactive)))
                     .into(civ_image_header)
             }
+        })
+
+        mDashboardViewModel.borrowingLiveData.observe(viewLifecycleOwner, Observer {
+            if (it != null) {
+                mStillBorrowingAdapter.setData(it)
+            }
+        })
+
+        mDashboardViewModel.borrowedLiveData.observe(viewLifecycleOwner, Observer {
+            if (it != null) {
+                mHistoryBorrowedAdapter.setData(it)
+            }
+        })
+
+        mDashboardViewModel.loading.observe(viewLifecycleOwner, Observer {
+            if (it) {
+                shimmer_fragment_dashboard.startShimmer()
+                shimmer_fragment_dashboard.visibility = View.VISIBLE
+                swipelayout.isEnabled = false
+            } else {
+                shimmer_fragment_dashboard.stopShimmer()
+                shimmer_fragment_dashboard.visibility = View.GONE
+                swipelayout.isEnabled = true
+                swipelayout.isRefreshing = false
+            }
+        })
+
+        mDashboardViewModel.pinaltyLiveData.observe(viewLifecycleOwner, Observer {
+
+            txt_pinalty_value.text = getString(R.string.money_rp, it)
         })
     }
 

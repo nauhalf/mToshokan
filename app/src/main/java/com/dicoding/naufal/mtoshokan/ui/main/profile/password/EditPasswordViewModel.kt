@@ -52,7 +52,7 @@ class EditPasswordViewModel : BaseViewModel() {
         return withContext(Dispatchers.IO) {
             try {
                 newPasswordLiveData.value?.let {
-                    val update = auth.currentUser?.updatePassword(it)?.await()
+                    auth.currentUser?.updatePassword(it)?.await()
 
                 }
                 true

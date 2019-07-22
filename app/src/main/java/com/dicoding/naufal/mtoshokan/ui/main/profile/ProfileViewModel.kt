@@ -43,7 +43,7 @@ class ProfileViewModel : BaseViewModel() {
                             auth.currentUser?.email,
                             ""
                         )
-                        val insert = newUser?.set(u)?.await()
+                        newUser?.set(u)?.await()
                         u
                     }
 
@@ -111,7 +111,7 @@ class ProfileViewModel : BaseViewModel() {
                     uri?.lastPathSegment
                 val fileRef =
                     FirebaseStorage.getInstance().reference.child("${ConstantValue.Storage.UserPhoto}/$fileName")
-                val uploadTask = file?.let { fileRef.putFile(it) }?.await()
+                file?.let { fileRef.putFile(it) }?.await()
                 val successUrl = fileRef.downloadUrl.await()
 
                 val profileUpdates = UserProfileChangeRequest.Builder()

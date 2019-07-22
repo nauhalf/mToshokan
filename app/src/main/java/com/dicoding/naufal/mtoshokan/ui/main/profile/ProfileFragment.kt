@@ -164,7 +164,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfileViewModel>()
                 } else {
                     val builder = AlertDialog.Builder(requireContext())
                     builder.setTitle(getString(R.string.profile_photo))
-                    builder.setItems(arrayOf("Ubah", "Hapus")) { dialog, which ->
+                    builder.setItems(arrayOf("Ubah", "Hapus")) { _, which ->
                         when (which) {
                             0 -> {
                                 this.openImagePicker(1, REQ_CODE_IMAGE)

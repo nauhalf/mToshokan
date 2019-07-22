@@ -63,16 +63,22 @@ dependencies {
     implementation 'joda-time:joda-time:2.10.1'
 
     implementation 'com.beloo.widget:ChipsLayoutManager:0.3.7@aar'
-    implementation 'com.google.firebase:firebase-core:16.0.9'
-    implementation 'com.google.firebase:firebase-auth:17.0.0'
-    implementation 'com.google.firebase:firebase-common-ktx:17.0.0'
-    implementation 'com.google.firebase:firebase-database:17.0.0'
+    implementation 'com.google.firebase:firebase-core:17.0.0'
+    implementation 'com.google.firebase:firebase-auth:18.0.0'
+    implementation 'com.google.firebase:firebase-common-ktx:18.0.0'
+    implementation 'com.google.firebase:firebase-database:18.0.0'
 
-    implementation 'com.google.firebase:firebase-firestore-ktx:19.0.0'
+    implementation 'com.google.firebase:firebase-firestore-ktx:20.1.0'
     implementation 'com.squareup.okhttp3:okhttp:4.0.0-alpha02'
-    implementation 'com.google.firebase:firebase-storage:17.0.0'
+    implementation 'com.google.firebase:firebase-storage:18.0.0'
     implementation 'com.github.bumptech.glide:glide:4.9.0'
     implementation "com.zhihu.android:matisse:0.5.2-beta4"
     implementation 'com.github.yalantis:ucrop:2.2.2'
     implementation 'com.dlazaro66.qrcodereaderview:qrcodereaderview:2.0.3'
+
+// load with glide
+    implementation 'com.github.piasy:BigImageViewer:1.5.6'
+    implementation 'com.github.piasy:ProgressPieIndicator:1.5.6'
+    implementation 'com.github.piasy:GlideImageLoader:1.5.6'
+    implementation 'com.github.piasy:GlideImageViewFactory:1.5.6'
 }

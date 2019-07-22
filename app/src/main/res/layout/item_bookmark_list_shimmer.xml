@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:orientation="vertical"
+        android:padding="@dimen/chip_custom_padding_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <ImageView
+            android:id="@+id/img_bookmark"
+            android:layout_width="36dp"
+            android:layout_height="0dp"
+            android:src="@drawable/ic_bookmark_black"
+            android:tint="@color/colorShimmer"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+    <View
+            android:id="@+id/txt_bookmark_title"
+            android:layout_width="150dp"
+            android:background="@drawable/background_shimmer_round"
+            android:layout_marginStart="@dimen/default_margin"
+            android:layout_height="23dp"
+            app:layout_constraintLeft_toRightOf="@id/img_bookmark"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+    <View
+            android:id="@+id/txt_bookmark_description"
+            android:layout_width="80dp"
+            android:background="@drawable/background_shimmer_round"
+            android:layout_marginTop="3dp"
+            android:layout_height="20dp"
+            app:layout_constraintLeft_toLeftOf="@id/txt_bookmark_title"
+            app:layout_constraintLeft_toRightOf="@id/img_bookmark"
+            app:layout_constraintTop_toBottomOf="@id/txt_bookmark_title"/>
+
+    <View
+            android:layout_width="20dp"
+            android:layout_height="15dp"
+            android:background="@drawable/background_shimmer_round"
+            app:layout_constraintBottom_toBottomOf="@id/img_image"
+            app:layout_constraintRight_toLeftOf="@id/img_image"
+            app:layout_constraintTop_toTopOf="@id/img_image"/>
+
+    <ImageView
+            android:id="@+id/img_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_image_black"
+            android:layout_marginTop="14dp"
+            android:tint="@color/colorShimmer"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

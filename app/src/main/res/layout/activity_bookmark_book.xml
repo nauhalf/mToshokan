@@ -1,29 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
 
-        tools:context=".ui.bookmarkbook.BookmarkBookActivity">
+    <data>
 
-    <include layout="@layout/template_toolbar_gradient_rtl"/>
+        <import type="android.view.View"/>
 
-    <androidx.core.widget.NestedScrollView
+        <variable
+                name="bookmarkBookViewModel"
+                type="com.dicoding.naufal.mtoshokan.ui.bookmarkbook.BookmarkBookViewModel"/>
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            tools:context=".ui.bookmarkbook.BookmarkBookActivity">
+
+        <include layout="@layout/template_toolbar_gradient_rtl"/>
 
         <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:descendantFocusability="blocksDescendants">
+                android:visibility="@{safeUnbox(bookmarkBookViewModel.loading)? View.GONE : View.VISIBLE}"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <ImageView
-                    android:id="@+id/img_logo"
+                    android:id="@+id/img_cover"
                     android:layout_width="120dp"
-                    android:layout_marginLeft="@dimen/default_margin"
+                    android:layout_marginStart="@dimen/default_margin"
                     android:layout_marginTop="@dimen/default_margin"
                     android:layout_height="150dp"
                     android:background="@drawable/background_image_radius"
@@ -40,9 +47,9 @@
                     android:ellipsize="end"
                     android:layout_marginLeft="@dimen/default_margin"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
-                    app:layout_constraintLeft_toRightOf="@id/img_logo"
+                    app:layout_constraintLeft_toRightOf="@id/img_cover"
                     app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/img_logo"
+                    app:layout_constraintTop_toTopOf="@id/img_cover"
                     tools:text="I Want to Eat Your Pancreas"/>
 
             <TextView
@@ -57,7 +64,7 @@
             <TextView
                     android:id="@+id/txt_writer"
                     android:layout_width="0dp"
-                    android:layout_marginRight="@dimen/default_margin"
+                    android:layout_marginEnd="@dimen/default_margin"
                     android:maxLines="2"
                     android:ellipsize="end"
                     android:layout_height="wrap_content"
@@ -73,10 +80,16 @@
                     android:layout_height="0dp"
                     android:layout_marginTop="20dp"
                     android:padding="@dimen/default_margin"
-                    app:layout_constraintTop_toBottomOf="@id/img_logo"
+                    app:layout_constraintTop_toBottomOf="@id/img_cover"
                     tools:listitem="@layout/item_bookmark_list"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.core.widget.NestedScrollView>
+        <include
+                layout="@layout/shimmer_activity_bookmark_book"
+                tools:visibility="invisible"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

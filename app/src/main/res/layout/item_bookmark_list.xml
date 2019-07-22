@@ -12,9 +12,9 @@
             android:id="@+id/img_bookmark"
             android:layout_width="36dp"
             android:layout_height="0dp"
-            app:layout_constraintLeft_toLeftOf="parent"
             android:src="@drawable/ic_bookmark_black"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
@@ -52,9 +52,9 @@
             android:layout_height="0dp"
             android:gravity="center_vertical|right"
             android:drawableEnd="@drawable/ic_image_black"
+            android:textColor="@android:color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            android:textColor="@android:color/black"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="10"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -37,6 +37,8 @@ class ScanQRViewModel : BaseViewModel() {
                         } ?: run {
                             failed(-2)
                         }
+                    } ?: run{
+                        failed(-1)
                     }
                 }
                 loading.value = false

@@ -8,7 +8,14 @@ import com.dicoding.naufal.mtoshokan.R
 import com.dicoding.naufal.mtoshokan.model.Bookmark
 import kotlinx.android.synthetic.main.item_bookmark_list.view.*
 
-class BookmarkBookAdapter(private val list: MutableList<Bookmark>, private val listener : (Bookmark) -> Unit) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class BookmarkBookAdapter(private val list: MutableList<Bookmark> = mutableListOf(), private val listener : (Bookmark) -> Unit) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+    fun setData(data: List<Bookmark>){
+        list.clear()
+        list.addAll(data)
+        notifyDataSetChanged()
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return if (viewType == VIEW_TYPE_NORMAL) {
             ViewHolder(
@@ -45,7 +52,7 @@ class BookmarkBookAdapter(private val list: MutableList<Bookmark>, private val l
         fun bind(bookmark: Bookmark) {
             view.txt_bookmark_title.text = bookmark.bookmarkTitle
             view.txt_bookmark_description.text = bookmark.bookmarkDescription
-            view.txt_img_count.text = bookmark.bookmarkImage.size.toString()
+            view.txt_img_count.text = bookmark.bookmarkImages?.size.toString()
             view.setOnClickListener {
                 listener(bookmark)
             }

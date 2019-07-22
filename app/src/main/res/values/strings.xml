@@ -41,7 +41,7 @@
     <string name="return_date">Tanggal Pengembalian</string>
     <string name="pinalty">Denda</string>
     <string name="borrowing">Peminjaman</string>
-    <string name="money_rp">Rp%1$,d</string>
+    <string name="money_rp">Rp %1$,d</string>
     <string name="date_format">%1$td %1$tB %1$tY</string>
     <string name="empty_bookmark">Tidak ada penanda</string>
     <string name="save">Simpan</string>
@@ -74,4 +74,8 @@
     <string name="offline_network">Jaringan mati / offline</string>
     <string name="borrow">Pinjam</string>
     <string name="cancel">Batal</string>
+    <string name="money">Rp %1$s</string>
+    <string name="returning_status">Status Pengembalian</string>
+    <string name="return_yes">Sudah</string>
+    <string name="return_no">Belum</string>
 </resources>

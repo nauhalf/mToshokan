@@ -1,6 +1,7 @@
 package com.dicoding.naufal.mtoshokan.model
 
 import android.os.Parcelable
+import com.google.firebase.firestore.DocumentSnapshot
 import kotlinx.android.parcel.Parcelize
 import java.util.*
 
@@ -12,10 +13,27 @@ data class BorrowingBook(
     var bookId: String? = null,
     var borrowingDate: Date? = null,
     var returningDate: Date? = null,
-    var isReturned: Boolean? = null
+    var isReturned: Boolean? = null,
+    var pinaltyAmount: String? = null,
+    var book: Book? = null
 
-
-) : Parcelable
+) : Parcelable{
+    companion object{
+        fun toBorrowingBook(snapshot: DocumentSnapshot?, borrower: User?, book: Book?): BorrowingBook{
+            return BorrowingBook(
+                borrowingBookId = snapshot?.getString("borrowingBookId"),
+                collectionId = snapshot?.getString("collectionId"),
+                borrower = borrower,
+                bookId = snapshot?.getString("bookId"),
+                borrowingDate = snapshot?.getDate("borrowingDate"),
+                returningDate = snapshot?.getDate("returningDate"),
+                isReturned = snapshot?.getBoolean("isReturned"),
+                pinaltyAmount = snapshot?.getString("pinaltyAmount"),
+                book = book
+            )
+        }
+    }
+}
 
 //val borrowingBookList = mutableListOf<BorrowingBook>(
 //    BorrowingBook(1, bookHyouka, userNaufal, Date(), getNextTenDays(), true),

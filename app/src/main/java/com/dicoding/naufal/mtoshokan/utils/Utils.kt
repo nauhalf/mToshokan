@@ -4,6 +4,8 @@ import android.app.Activity
 import android.content.Context
 import android.content.pm.ActivityInfo
 import android.content.pm.PackageManager
+import android.net.Uri
+import android.provider.MediaStore
 import android.text.TextUtils
 import android.util.Patterns
 import android.widget.Toast
@@ -15,9 +17,13 @@ import com.google.firebase.firestore.FirebaseFirestoreSettings
 import com.google.firebase.ktx.Firebase
 import com.zhihu.matisse.Matisse
 import com.zhihu.matisse.MimeType
+import com.zhihu.matisse.internal.entity.CaptureStrategy
 import org.joda.time.DateTime
 import org.joda.time.DateTimeZone
 import org.joda.time.Days
+import java.math.BigDecimal
+import java.text.DecimalFormat
+import java.text.DecimalFormatSymbols
 import java.util.*
 
 fun getNextTenDays(optionalDay: Int = 10): Date {
@@ -33,6 +39,13 @@ fun Date.getRemaingDays(): Int {
     return Days.daysBetween(today.toLocalDate(), returnDate.toLocalDate()).days
 }
 
+fun getRemaingDays(borrowing: Date, returning: Date): Int {
+    val returnDate = DateTime(returning)
+    val borrowDate = DateTime(borrowing)
+
+    return Days.daysBetween(borrowDate, returnDate).days
+}
+
 fun String?.isValidEmail() : Boolean{
     return Patterns.EMAIL_ADDRESS.matcher(this).matches()
 }
@@ -46,6 +59,10 @@ fun Activity.openImagePicker(maxItem: Int, requestCode: Int) {
         .choose(MimeType.ofImage())
         .maxSelectable(maxItem)
         .gridExpectedSize(resources.getDimensionPixelSize(R.dimen.grid_expected_size))
+        .capture(true)
+        .captureStrategy(
+            CaptureStrategy(true, "com.dicoding.naufal.mtoshokan.fileprovider","test")
+        )
         .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED)
         .thumbnailScale(0.85f)
         .imageEngine(Glide4Engine())
@@ -59,6 +76,8 @@ fun Fragment.openImagePicker(maxItem: Int, requestCode: Int) {
         .maxSelectable(maxItem)
         .gridExpectedSize(resources.getDimensionPixelSize(R.dimen.grid_expected_size))
         .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED)
+        .capture(true)
+        .captureStrategy(CaptureStrategy(true, "com.dicoding.naufal.mtoshokan.fileprovider"))
         .thumbnailScale(0.85f)
         .imageEngine(Glide4Engine())
         .theme(R.style.Matisse_Dracula)

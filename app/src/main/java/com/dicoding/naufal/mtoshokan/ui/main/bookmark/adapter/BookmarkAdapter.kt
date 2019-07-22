@@ -5,11 +5,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.dicoding.naufal.mtoshokan.R
-import com.dicoding.naufal.mtoshokan.model.Book
-import com.dicoding.naufal.mtoshokan.model.BookmarkBook
+import com.dicoding.naufal.mtoshokan.model.Bookmark
 import kotlinx.android.synthetic.main.item_bookmarked_book.view.*
 
-class BookmarkAdapter(private val list: MutableList<BookmarkBook>, private val listener: (Book) -> Unit) : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
+class BookmarkAdapter(private val list: MutableList<Bookmark>, private val listener: (Bookmark) -> Unit) :
+    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return ViewHolder(
             LayoutInflater.from(parent.context).inflate(R.layout.item_bookmarked_book, parent, false)
@@ -24,12 +24,12 @@ class BookmarkAdapter(private val list: MutableList<BookmarkBook>, private val l
         (holder as ViewHolder).bind(list.get(position))
     }
 
-    inner class ViewHolder(private val view: View) : RecyclerView.ViewHolder(view){
-        fun bind(bookmark: BookmarkBook){
-            view.txt_title.text = bookmark.book.bookTitle
-            view.txt_bookmark_count.text = bookmark.bookmark?.size.toString()
+    inner class ViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
+        fun bind(bookmark: Bookmark) {
+            view.txt_title.text = bookmark.bookmarkTitle
+            view.txt_bookmark_count.text = bookmark.bookmarkImages?.size.toString()
             view.setOnClickListener {
-                listener(bookmark.book)
+                listener(bookmark)
             }
         }
     }

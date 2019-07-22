@@ -17,16 +17,16 @@ data class Book(
     var bookLocation: String?= null
 ) : Parcelable {
     companion object{
-        fun toBook(snapshot : DocumentSnapshot, bookType: BookType) : Book {
+        fun toBook(snapshot : DocumentSnapshot?, bookType: BookType?) : Book {
             return Book(
-                bookId = snapshot.getString("bookId"),
-                bookCover = snapshot.getString("bookCover"),
-                bookISBN = snapshot.getString("bookISBN"),
-                bookLocation = snapshot.getString("bookLocation"),
-                bookPublisher = snapshot.getString("bookPublisher"),
-                bookSynopsis = snapshot.getString("bookSynopsis"),
-                bookTitle = snapshot.getString("bookTitle"),
-                bookWriter = snapshot.getString("bookWriter"),
+                bookId = snapshot?.getString("bookId"),
+                bookCover = snapshot?.getString("bookCover"),
+                bookISBN = snapshot?.getString("bookISBN"),
+                bookLocation = snapshot?.getString("bookLocation"),
+                bookPublisher = snapshot?.getString("bookPublisher"),
+                bookSynopsis = snapshot?.getString("bookSynopsis"),
+                bookTitle = snapshot?.getString("bookTitle"),
+                bookWriter = snapshot?.getString("bookWriter"),
                 bookType = bookType
             )
         }

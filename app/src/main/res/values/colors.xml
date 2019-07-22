@@ -12,5 +12,8 @@
     <color name="colorAlertRed">#C91616</color>
     <color name="colorBlackAlpha80">#B3000000</color>
     <color name="colorShimmer">#ddd</color>
+    <color name="colorSwipe1">#7474BF</color>
+    <color name="colorSwipe2">#69F0AE</color>
+    <color name="colorSwipe3">#E040FB</color>
 
 </resources>

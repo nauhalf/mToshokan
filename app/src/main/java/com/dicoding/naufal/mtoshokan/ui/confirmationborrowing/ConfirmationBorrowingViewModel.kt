@@ -39,13 +39,15 @@ class ConfirmationBorrowingViewModel : BaseViewModel() {
             try {
                 val newBorrowing = database.collection(ConstantValue.Database.BorrowingBooks).document()
                 val user = database.document("users/${auth.currentUser?.uid.toString()}")
-                val insert = newBorrowing.set(HashMap<String, Any?>().apply {
+                newBorrowing.set(HashMap<String, Any?>().apply {
+                    put("borrowingBookId", newBorrowing.id)
+                    put("collectionId", collectionLiveData.value?.collectionId)
+                    put("borrower", user)
                     put("bookId", collectionLiveData.value?.book?.bookId)
-                    put("borrowingId", newBorrowing.id)
                     put("borrowingDate", FieldValue.serverTimestamp())
                     put("returningDate", getNextTenDays(14))
                     put("isReturned", false)
-                    put("user", user)
+                    put("pinaltyAmount", "")
                 }).await()
 
                 val update = collectionLiveData.value?.collectionId?.let {

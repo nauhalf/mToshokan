@@ -20,7 +20,7 @@ class ProgressDialog {
 
             builder.setCancelable(true)
                 .setMessage(message)
-                .setPositiveButton("OK") { i, id ->
+                .setPositiveButton("OK") { i, _ ->
                     i.dismiss()
                     callback()
                 }
